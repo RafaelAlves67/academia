@@ -2,6 +2,10 @@ import User from "../models/UserModel.js";
 import Enrollment from "../models/EnrollmentModel.js";
 import CheckIn from "../models/CheckInModel.js";
 import { Op } from "sequelize";
+import { configDotenv } from "dotenv";
+configDotenv()
+import jwt from 'jsonwebtoken'
+const SECRET  = process.env.SECRET_MATRICULA
 
 export async function registrarCheckIn(req,res){
     try {
@@ -13,10 +17,24 @@ export async function registrarCheckIn(req,res){
         const user = await User.findOne({where: {id: id_user}})
         if(!user){
             return res.status(400).json({msg: "Usuário nã encontrado"})
-        }    
+        }  
+        
+        // TOKEN
+        const authToken = req.headers['authorization']
+        const token = authToken && authToken.split(' ')[1]
+        if(!token){
+            return res.status(400).json({msg: "Acesso negado."})
+        }
 
+        try {
+            jwt.verify(token, SECRET)
+        } catch (error) {
+            return res.status(403).json({msg: "Token inválido. => ", error})
+        }
         // PEGANDO A DATA ATUAL e HORA
         const dataAtual = new Date()
+        console.log(dataAtual.toLocaleDateString())
+        console.log(dataAtual.toLocaleTimeString())
 
         // DATA FORMATADA
         const diaAtual = dataAtual.getDate()
