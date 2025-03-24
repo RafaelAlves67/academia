@@ -91,3 +91,5 @@ export async function excluirMatricula(req,res){
 
     return res.status(200).json({msg: "Matricula excluída"})
 }
+
+

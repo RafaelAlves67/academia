@@ -13,9 +13,9 @@ const Workout = sequelize.define("Workout", {
   
   // Relacionamentos
   User.hasMany(Workout, { foreignKey: "id_aluno", as: "treinosAluno" });
-  Workout.belongsTo(User, { foreignKey: "id_aluno", as: "aluno" });
+  Workout.belongsTo(User, { foreignKey: "id_user", as: "aluno" });
   
   User.hasMany(Workout, { foreignKey: "id_instrutor", as: "treinosInstrutor" });
-  Workout.belongsTo(User, { foreignKey: "id_instrutor", as: "instrutor" });
+  Workout.belongsTo(User, { foreignKey: "id_user", as: "instrutor" });
 
   export default Workout

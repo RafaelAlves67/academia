@@ -19,22 +19,9 @@ export async function registrarCheckIn(req,res){
             return res.status(400).json({msg: "Usuário nã encontrado"})
         }  
         
-        // TOKEN
-        const authToken = req.headers['authorization']
-        const token = authToken && authToken.split(' ')[1]
-        if(!token){
-            return res.status(400).json({msg: "Acesso negado."})
-        }
-
-        try {
-            jwt.verify(token, SECRET)
-        } catch (error) {
-            return res.status(403).json({msg: "Token inválido. => ", error})
-        }
         // PEGANDO A DATA ATUAL e HORA
         const dataAtual = new Date()
-        console.log(dataAtual.toLocaleDateString())
-        console.log(dataAtual.toLocaleTimeString())
+
 
         // DATA FORMATADA
         const diaAtual = dataAtual.getDate()
@@ -56,6 +43,22 @@ export async function registrarCheckIn(req,res){
 
         if (dataAtual < horarioAbertura || dataAtual > horarioFechamento) {
             return res.status(400).json({ msg: "Academia fechada!" });
+        }
+
+        // TOKEN
+        const authToken = req.headers['authorization']
+        const token = authToken && authToken.split(' ')[1]
+        if (!token) {
+            return res.status(400).json({ msg: "Acesso negado." })
+        }
+
+        try {
+            const decoded = jwt.verify(token, SECRET)
+            if(decoded.id_user !== parseInt(id_user)){
+                return res.status(400).json({ msg: "Acesso negado ao usuário." })
+            }
+        } catch (error) {
+            return res.status(403).json({ msg: "Token inválido. => ", error })
         }
 
         // VERIFICAR SE USUARIO JA ENTROU NESSE DIA 

@@ -12,6 +12,7 @@ import userRoute from './routes/userRoutes.js'
 import planRoute from './routes/PlanRoute.js'
 import matriculaRoute from './routes/MatriculaRoute.js'
 import checkRoute from './routes/CheckRoute.js'
+import ExercicioRoute from './routes/ExercicioRoute.js'
 
 
 const app = express() 
@@ -25,6 +26,7 @@ app.use('/user', userRoute)
 app.use('/plano', planRoute)
 app.use('/matricula', matriculaRoute)
 app.use('/check', checkRoute)
+app.use('/exercicio', ExercicioRoute)
 
 
 app.listen(3000,() => {
