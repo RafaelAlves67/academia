@@ -87,7 +87,7 @@ export async function excluirMatricula(req,res){
         return res.status(400).json({msg: "Matricula não encontrada!"})
     }
    
-    await matricula.destroy()
+    await Enrollment.destroy({where: {id: id}})
 
     return res.status(200).json({msg: "Matricula excluída"})
 }

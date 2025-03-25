@@ -7,7 +7,7 @@ const Workout = sequelize.define("Workout", {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     id_aluno: { type: DataTypes.INTEGER, allowNull: false },
     id_instrutor: { type: DataTypes.INTEGER, allowNull: false },
-    descricao: { type: DataTypes.TEXT, allowNull: false },
+    descricao: { type: DataTypes.TEXT, allowNull: true },
     dias_da_semana: { type: DataTypes.STRING, allowNull: false },
   });
   

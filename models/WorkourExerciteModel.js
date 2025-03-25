@@ -9,7 +9,7 @@ const WorkoutExercise = sequelize.define("WorkoutExercise", {
     id_exercise: { type: DataTypes.INTEGER, allowNull: false },
     series: { type: DataTypes.INTEGER, allowNull: false },
     repeticoes: { type: DataTypes.INTEGER, allowNull: false },
-    carga: { type: DataTypes.DECIMAL(5, 2) },
+    carga: { type: DataTypes.DECIMAL(5, 2), allowNull: true },
   });
   
   // Relacionamento N:N

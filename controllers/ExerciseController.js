@@ -48,7 +48,7 @@ export async function deletarExercicio(req,res){
             return res.status(400).json({msg: "Exercicio não encontrado"})
         }
 
-        await exercicio.destroy()
+        await Exercise.destroy({where: {id: id}})
         return res.status(200).json({msg: "Exercicio deletado."})
     } catch (error) {
         console.log("Erro na rota de deletar exercicio = > ", error)
